@@ -1,0 +1,1389 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>V MediCare — Smart Healthcare Management Platform</title>
+  <meta name="description"
+    content="V MediCare is an advanced full-stack hospital management system featuring role-based dashboards, appointment booking, medical records, laboratory diagnostic tracking, digital pharmacy, bed occupancy, and AI health assistance.">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+</head>
+
+<body>
+
+  <!-- Toast Notification Hub -->
+  <div id="toast-container" class="toast-container"></div>
+
+  <!-- =====================================================================
+       PUBLIC LANDING PAGE VIEW
+       ===================================================================== -->
+  <div id="landing-view">
+    <!-- Navbar -->
+    <header class="landing-nav">
+      <div class="container nav-wrapper">
+        <a href="#home" class="brand-logo">
+          <div class="brand-icon">✚</div>
+          <div>V MediCare</div>
+        </a>
+
+        <ul class="nav-links">
+          <li><a href="#home" class="active">Home</a></li>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#departments">Departments</a></li>
+          <li><a href="#doctors">Doctors</a></li>
+          <li><a href="#emergency">Emergency</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+
+        <div class="nav-actions">
+          <button class="btn btn-outline" onclick="app.openPatientLoginModal()">Patient Login</button>
+          <button class="btn btn-outline" onclick="app.openRegisterModal()">Register</button>
+          <button class="btn btn-ghost" style="color:var(--text-muted); font-size:0.85rem;"
+            onclick="app.openLoginModal('doctor')">Staff Portal</button>
+          <button class="btn btn-primary" onclick="app.openBookingWizard()">Book Appointment</button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-section">
+      <div class="container hero-grid">
+        <div class="hero-content">
+          <div class="hero-badge">
+            <span>✨</span> Next-Generation Hospital Management
+          </div>
+          <h1>Smart Healthcare Management, <span>All in One Place.</span></h1>
+          <p>
+            Connect with certified doctors, manage appointments, access verified medical records, laboratory reports,
+            digital prescriptions, billing and 24/7 hospital services through one unified, secure platform.
+          </p>
+          <div class="hero-buttons">
+            <button class="btn btn-primary btn-lg" onclick="app.openBookingWizard()">📅 Book Appointment</button>
+            <a href="#emergency" class="btn btn-danger btn-lg">🚨 24/7 Emergency Care</a>
+          </div>
+        </div>
+
+        <div class="hero-visual">
+          <div class="hero-main-card">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+              <div style="display:flex; align-items:center; gap:12px;">
+                <div class="brand-icon" style="width:38px; height:38px; font-size:1.1rem;">🏥</div>
+                <div>
+                  <h4 style="font-size:1.05rem;">V MediCare Center</h4>
+                  <p style="font-size:0.75rem; color:var(--text-muted);">NABH & JCI Accredited Super Specialty</p>
+                </div>
+              </div>
+              <span class="badge badge-success">● Hospital Live</span>
+            </div>
+            <div style="background:var(--bg-subtle); padding:16px; border-radius:var(--radius-md); margin-bottom:16px;">
+              <div style="display:flex; justify-content:space-between; font-size:0.85rem; margin-bottom:6px;">
+                <span>Doctor OPD Availability</span>
+                <b>94% Active</b>
+              </div>
+              <div class="bed-progress-bar" style="margin:0;">
+                <div class="bed-progress-fill" style="width: 94%;"></div>
+              </div>
+            </div>
+            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:12px; font-size:0.85rem;">
+              <div style="background:#eff6ff; padding:12px; border-radius:var(--radius-md);">
+                <div style="color:var(--secondary); font-weight:700;">Diagnostic Lab</div>
+                <div>24/7 Sample Collection</div>
+              </div>
+              <div style="background:#ecfdf5; padding:12px; border-radius:var(--radius-md);">
+                <div style="color:#059669; font-weight:700;">Pharmacy</div>
+                <div>Full Stock & Dispense</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="floating-stat-card top-right">
+            <div style="font-size:1.8rem;">👨‍⚕️</div>
+            <div>
+              <h5 style="font-size:1.1rem; color:var(--primary);">50+ Doctors</h5>
+              <p style="font-size:0.75rem; color:var(--text-muted);">Super Specialists</p>
+            </div>
+          </div>
+
+          <div class="floating-stat-card bottom-left">
+            <div style="font-size:1.8rem;">🚑</div>
+            <div>
+              <h5 style="font-size:1.1rem; color:var(--danger);">24/7 Emergency</h5>
+              <p style="font-size:0.75rem; color:var(--text-muted);">Live ACLS Ambulances</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Statistics Section -->
+    <section class="stats-section">
+      <div class="container stats-grid">
+        <div class="stat-item">
+          <h3>50+</h3>
+          <p>Specialist Doctors</p>
+        </div>
+        <div class="stat-item">
+          <h3>20+</h3>
+          <p>Clinical Departments</p>
+        </div>
+        <div class="stat-item">
+          <h3>10,000+</h3>
+          <p>Treated Patients</p>
+        </div>
+        <div class="stat-item">
+          <h3>24/7</h3>
+          <p>Emergency & Trauma Care</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="section section-alt">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">Clinical Excellence</span>
+          <h2 class="section-title">Comprehensive Hospital Services</h2>
+          <p class="section-subtitle">Delivering precision clinical care, advanced diagnostics, and compassionate
+            healthcare solutions for all age groups.</p>
+        </div>
+
+        <div class="services-grid">
+          <div class="service-card">
+            <div class="service-icon">🚨</div>
+            <h4>Emergency Care</h4>
+            <p>24/7 specialized trauma center equipped with modern resuscitation suites, triage protocols, and immediate
+              specialist response.</p>
+          </div>
+          <div class="service-card">
+            <div class="service-icon">🩺</div>
+            <h4>Doctor Consultation</h4>
+            <p>Multi-specialty outpatient clinics featuring seasoned senior consultants across medicine, surgery, and
+              cardiology.</p>
+          </div>
+          <div class="service-card">
+            <div class="service-icon">🧪</div>
+            <h4>Diagnostic Laboratory</h4>
+            <p>Fully automated pathology, biochemistry, microbiology, and molecular diagnostic testing with verified
+              online reports.</p>
+          </div>
+          <div class="service-card">
+            <div class="service-icon">💊</div>
+            <h4>24/7 Pharmacy</h4>
+            <p>Round-the-clock dispensing of branded medicines, injectables, vaccines, and surgical consumables with
+              digital audit trails.</p>
+          </div>
+          <div class="service-card">
+            <div class="service-icon">🛏️</div>
+            <h4>Intensive Care (ICU)</h4>
+            <p>High-tech intensive therapy units equipped with advanced ventilators, multipara cardiac monitors, and
+              dedicated intensivists.</p>
+          </div>
+          <div class="service-card">
+            <div class="service-icon">🚑</div>
+            <h4>Ambulance Services</h4>
+            <p>Fleet of Advanced Cardiac Life Support (ACLS) vehicles on standby with paramedic emergency personnel and
+              GPS routing.</p>
+          </div>
+          <div class="service-card">
+            <div class="service-icon">🔬</div>
+            <h4>Surgical Care</h4>
+            <p>Laminar airflow modular operation theatres for minimally invasive, laparoscopic, orthopedic, and
+              cardiovascular surgeries.</p>
+          </div>
+          <div class="service-card">
+            <div class="service-icon">❤️</div>
+            <h4>Health Checkups</h4>
+            <p>Tailored preventive health screening packages including executive cardiac profiles, diabetes care, and
+              geriatric health panels.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Departments Section -->
+    <section id="departments" class="section">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">Specialized Wings</span>
+          <h2 class="section-title">Hospital Departments</h2>
+          <p class="section-subtitle">Explore our specialized clinical centers of excellence supported by renowned
+            medical professors and surgeons.</p>
+        </div>
+
+        <div id="departments-grid-target" class="dept-grid">
+          <!-- Dynamically Populated by app.js -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Doctors Section -->
+    <section id="doctors" class="section section-alt">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">Medical Faculty</span>
+          <h2 class="section-title">Consult Our Specialists</h2>
+          <p class="section-subtitle">Book appointments with leading surgeons, cardiologists, pediatricians, and
+            physicians.</p>
+        </div>
+
+        <div id="doctors-grid-target" class="doctors-grid">
+          <!-- Dynamically Populated by app.js -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Emergency & Ambulance Live Section -->
+    <section id="emergency" class="section">
+      <div class="container">
+        <div class="emergency-hub">
+          <div class="emergency-hub-grid">
+            <div>
+              <span class="badge" style="background:rgba(255,255,255,0.25); color:#ffffff; margin-bottom:12px;">CRITICAL
+                RESPONSE 24/7</span>
+              <h2>V MediCare Emergency & Trauma Centre</h2>
+              <p>
+                Our emergency department operates round-the-clock with trauma resuscitation surgeons, stroke
+                specialists, and critical care nursing staff.
+              </p>
+              <div class="emergency-hotline">
+                <span style="font-size:1.8rem;">📞</span>
+                <div>
+                  <div style="font-size:0.8rem; text-transform:uppercase; letter-spacing:1px;">Toll-Free Emergency
+                    Hotline</div>
+                  <div class="number">1800-200-9999</div>
+                </div>
+              </div>
+              <div>
+                <button class="btn btn-primary"
+                  onclick="alert('Connecting to V MediCare Dispatch Operator: 1800-200-9999')">
+                  📞 Call Emergency Now
+                </button>
+              </div>
+            </div>
+
+            <div class="ambulance-tracker-card">
+              <h4>
+                <span>🚑 Live Ambulance Fleet Status</span>
+                <span class="badge badge-success">GPS Active</span>
+              </h4>
+              <div id="ambulance-list-target" class="ambulance-status-list">
+                <!-- Dynamically Populated by app.js -->
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Hospital Location & Map Info -->
+        <div class="content-card">
+          <div class="content-card-header">
+            <h4 class="content-card-title">📍 Hospital Location & Campus Access</h4>
+            <span class="badge badge-primary">Bengaluru Campus</span>
+          </div>
+          <div class="modal-body" style="display:grid; grid-template-columns: 1fr 1fr; gap:24px;">
+            <div>
+              <h4 style="margin-bottom:8px;">V MediCare Hospital & Research Centre</h4>
+              <p style="color:var(--text-muted); font-size:0.92rem; line-height:1.6; margin-bottom:14px;">
+                142 MG Road, Central District, Bengaluru, Karnataka 560001.<br>
+                Direct Metro Connectivity via Trinity Metro Station (Exit 2).<br>
+                Dedicated Emergency Ambulance Bay accessible via Gate 1 (East Wing).
+              </p>
+              <div style="display:flex; flex-direction:column; gap:6px; font-size:0.88rem;">
+                <div>🕒 <b>OPD Hours:</b> 08:00 AM - 08:00 PM (Mon - Sat)</div>
+                <div>🚨 <b>Emergency & Trauma:</b> Open 24 Hours, 365 Days</div>
+                <div>💊 <b>Pharmacy & Diagnostic Lab:</b> Open 24 Hours</div>
+              </div>
+            </div>
+            <div
+              style="background:linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%); border-radius:var(--radius-md); display:flex; flex-direction:column; align-items:center; justify-content:center; padding:30px; border:1px dashed var(--text-light);">
+              <div style="font-size:2.5rem; margin-bottom:8px;">🗺️</div>
+              <h5 style="font-size:1.05rem;">Interactive Campus Map</h5>
+              <p style="font-size:0.8rem; color:var(--text-muted); text-align:center;">V MediCare Main Hospital Block,
+                Diagnostic Tower & Trauma Wing</p>
+              <button class="btn btn-outline btn-sm" style="margin-top:10px;"
+                onclick="window.open('https://maps.google.com', '_blank')">Open in Google Maps</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact" class="footer">
+      <div class="container">
+        <div class="footer-grid">
+          <div class="footer-brand">
+            <h3>✚ V MediCare</h3>
+            <p>
+              A premier multi-specialty healthcare institution and smart hospital management platform dedicated to
+              delivering world-class clinical outcomes, paperless medical records, and compassionate healthcare.
+            </p>
+            <p style="color:#64748b; font-size:0.8rem;">
+              Crafted as an industry-standard full-stack CSE portfolio & research project.
+            </p>
+          </div>
+
+          <div class="footer-col">
+            <h4>Quick Links</h4>
+            <ul class="footer-links">
+              <li><a href="#home">Home</a></li>
+              <li><a href="#services">Services</a></li>
+              <li><a href="#departments">Departments</a></li>
+              <li><a href="#doctors">Consultant Doctors</a></li>
+              <li><a href="#emergency">Emergency Care</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-col">
+            <h4>Portals & Roles</h4>
+            <ul class="footer-links">
+              <li><a href="javascript:void(0)" onclick="app.openPatientLoginModal()">Patient Portal Login</a></li>
+              <li><a href="javascript:void(0)" onclick="app.openRegisterModal()">New Patient Registration</a></li>
+              <li><a href="javascript:void(0)" onclick="app.openLoginModal('doctor')">Doctor Clinical Desk</a></li>
+              <li><a href="javascript:void(0)" onclick="app.openLoginModal('receptionist')">Front Desk & Beds</a></li>
+              <li><a href="javascript:void(0)" onclick="app.openLoginModal('pharmacist')">Pharmacy Operations</a></li>
+              <li><a href="javascript:void(0)" onclick="app.openLoginModal('labtech')">Diagnostic Lab Console</a></li>
+              <li><a href="javascript:void(0)" onclick="app.openLoginModal('admin')">Admin Command Center</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-col">
+            <h4>24/7 Helpline</h4>
+            <ul class="footer-links">
+              <li>📞 Emergency: 1800-200-9999</li>
+              <li>📞 Appointments: +91 80 4455 6677</li>
+              <li>✉️ info@vmedicare.com</li>
+              <li>📍 MG Road, Bengaluru, Karnataka</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <div>© 2026 V MediCare Hospital Management System. All rights reserved.</div>
+          <div>Role-Based Access Control • Electronic Health Records • HIPAA Compliant Architecture</div>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <!-- =====================================================================
+       AUTHENTICATED DASHBOARD APPLICATION (All 6 Roles)
+       ===================================================================== -->
+  <div id="dashboard-app" class="dashboard-app">
+    <!-- Sidebar -->
+    <aside class="dash-sidebar">
+      <div class="dash-sidebar-header">
+        <div class="brand-icon" style="width:34px; height:34px; font-size:1rem;">✚</div>
+        <div style="font-weight:800; font-size:1.2rem; color:var(--text-main);">V MediCare</div>
+      </div>
+
+      <div class="user-badge-role">
+        <div id="dash-user-avatar" class="user-avatar-circle">U</div>
+        <div class="user-info-text">
+          <h5 id="dash-user-name">User Name</h5>
+          <p id="dash-user-role">Role (ID)</p>
+        </div>
+      </div>
+
+      <ul id="sidebar-menu-target" class="sidebar-nav">
+        <!-- Dynamically rendered based on active role -->
+      </ul>
+
+      <div class="sidebar-footer">
+        <button class="btn btn-outline btn-sm" style="width:100%;" onclick="app.logout()">
+          🚪 Sign Out
+        </button>
+      </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <div class="dash-main">
+      <header class="dash-topbar">
+        <div class="dash-title-area">
+          <h2 id="dash-header-title">Hospital Portal</h2>
+          <p id="dash-header-sub">Role-Based Medical Operations & Clinical Workflow</p>
+        </div>
+
+        <div class="dash-topbar-actions">
+          <button class="btn btn-outline btn-sm" onclick="app.openSimulatedEmailModal()"
+            title="View Sent Transactional Emails">
+            ✉️ Email Logs
+          </button>
+
+          <button class="icon-btn" onclick="app.openSimulatedEmailModal()" title="Notifications">
+            🔔
+            <span id="dash-unread-badge" class="notification-badge-count">2</span>
+          </button>
+
+          <button class="btn btn-outline-primary btn-sm" onclick="app.logout()">
+            Home Page
+          </button>
+        </div>
+      </header>
+
+      <main class="dash-content">
+        <div id="dash-content-target">
+          <!-- Dynamically Rendered by app.js based on role and active view -->
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- =====================================================================
+       V MEDICARE AI ASSISTANT WIDGET
+       ===================================================================== -->
+  <button id="ai-fab-btn" class="ai-fab" title="Chat with V MediCare AI Assistant">
+    🤖
+  </button>
+
+  <div id="ai-chat-window" class="ai-chat-window">
+    <div class="ai-chat-header">
+      <div class="ai-header-info">
+        <div class="ai-avatar">🤖</div>
+        <div>
+          <h5 style="font-size:0.95rem;">V MediCare Assistant</h5>
+          <p style="font-size:0.72rem; opacity:0.9;">Hospital AI Guide</p>
+        </div>
+      </div>
+      <button class="modal-close-btn" style="color:#ffffff;"
+        onclick="document.getElementById('ai-chat-window').classList.remove('active')">✕</button>
+    </div>
+
+    <div class="ai-disclaimer">
+      ⚠️ <b>Medical Disclaimer:</b> This assistant provides hospital information only and does not diagnose conditions
+      or replace professional medical advice.
+    </div>
+
+    <div id="ai-messages-target" class="ai-messages-area">
+      <div class="ai-bubble bot">
+        Hello! I am your <b>V MediCare Assistant</b>. How can I help you today? You can ask me about finding doctors,
+        booking appointments, emergency numbers, or hospital timings.
+      </div>
+    </div>
+
+    <div class="ai-quick-prompts">
+      <button class="ai-prompt-btn" onclick="app.askAIPreset('How do I book an appointment?')">Book Appt</button>
+      <button class="ai-prompt-btn" onclick="app.askAIPreset('What is the emergency contact?')">Emergency</button>
+      <button class="ai-prompt-btn" onclick="app.askAIPreset('Tell me about Cardiology')">Cardiology</button>
+      <button class="ai-prompt-btn" onclick="app.askAIPreset('What are the hospital timings?')">Visiting Hours</button>
+    </div>
+
+    <div class="ai-chat-input-area">
+      <input type="text" id="ai-user-msg" class="form-control" placeholder="Ask a question..."
+        style="font-size:0.85rem;">
+      <button id="ai-send-btn" class="btn btn-primary btn-sm">Send</button>
+    </div>
+  </div>
+
+  <!-- =====================================================================
+       ALL MODAL DIALOGS
+       ===================================================================== -->
+
+  <!-- 0. Dedicated Patient Login Modal -->
+  <div id="patient-login-modal" class="modal-overlay">
+    <div class="modal-container">
+      <div class="modal-header">
+        <div>
+          <h3 class="modal-title">👤 Patient Portal Login</h3>
+          <p style="font-size:0.8rem; color:var(--text-muted); margin-top:3px;">Access your personal health records,
+            appointments & prescriptions</p>
+        </div>
+        <button class="modal-close-btn" onclick="app.closeAllModals()">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="demo-shortcut-banner">
+          <div><b>⚡ Quick Demo:</b> <code>PAT20260001</code> / <code>patient@vmedicare.com</code></div>
+          <button type="button" class="btn btn-outline-primary btn-sm"
+            onclick="app.populateDemoPatientCredentials()">Auto Fill</button>
+        </div>
+
+        <div id="patient-login-error" class="auth-alert-box danger" style="display:none;"></div>
+
+        <form onsubmit="event.preventDefault(); app.handlePatientLoginSubmit(this);">
+          <div class="form-group">
+            <label class="form-label">Registered Patient Email</label>
+            <input type="email" id="pat-login-email" name="email" class="form-control" required
+              placeholder="e.g. patient@vmedicare.com">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Patient ID</label>
+            <input type="text" id="pat-login-id" name="patient_id" class="form-control" required
+              placeholder="e.g. PAT20260001" style="text-transform:uppercase; letter-spacing:0.5px;">
+            <small style="color:var(--text-muted); font-size:0.75rem;">Generated during registration (Format:
+              PAT2026xxxx)</small>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Password</label>
+            <input type="password" id="pat-login-password" name="password" class="form-control" required
+              placeholder="••••••••">
+          </div>
+
+          <div
+            style="display:flex; justify-content:space-between; align-items:center; margin-bottom:18px; font-size:0.85rem;">
+            <label><input type="checkbox" id="pat-remember-me" checked> Remember Me</label>
+            <a href="javascript:void(0)" onclick="app.forgotPasswordPrompt()">Forgot Password?</a>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-lg" style="width:100%;">
+            Login as Patient
+          </button>
+        </form>
+
+        <div
+          style="text-align:center; margin-top:18px; padding-top:14px; border-top:1px solid var(--border-light); font-size:0.88rem;">
+          <div>New Patient? <a href="javascript:void(0)" onclick="app.openRegisterModal()"
+              style="font-weight:700;">Register Now</a></div>
+          <div style="margin-top:6px; font-size:0.8rem; color:var(--text-muted);">Hospital Doctor or Staff? <a
+              href="javascript:void(0)" onclick="app.openLoginModal('doctor')">Staff Portal Login</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 1. Staff / Portal Login Modal with 1-Click Role Switcher -->
+  <div id="login-modal" class="modal-overlay">
+    <div class="modal-container">
+      <div class="modal-header">
+        <h3 class="modal-title">Hospital Staff Portal Login</h3>
+        <button class="modal-close-btn" onclick="app.closeAllModals()">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="demo-role-selector">
+          <p>⚡ 1-Click Staff Demo Login:</p>
+          <div class="demo-pills">
+            <button type="button" class="demo-pill" onclick="app.populateDemoCredentials('doctor')">👨‍⚕️
+              Doctor</button>
+            <button type="button" class="demo-pill" onclick="app.populateDemoCredentials('receptionist')">🏨
+              Receptionist</button>
+            <button type="button" class="demo-pill" onclick="app.populateDemoCredentials('pharmacist')">💊
+              Pharmacist</button>
+            <button type="button" class="demo-pill" onclick="app.populateDemoCredentials('labtech')">🧪 Lab
+              Tech</button>
+            <button type="button" class="demo-pill" onclick="app.populateDemoCredentials('admin')">🛡️ Admin</button>
+          </div>
+        </div>
+
+        <form
+          onsubmit="event.preventDefault(); app.loginUser(document.getElementById('login-email').value, document.getElementById('login-password').value);">
+          <div class="form-group">
+            <label class="form-label">Staff Email Address</label>
+            <input type="email" id="login-email" class="form-control" required placeholder="doctor@vmedicare.com">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Password</label>
+            <input type="password" id="login-password" class="form-control" required placeholder="••••••••">
+          </div>
+
+          <div
+            style="display:flex; justify-content:space-between; align-items:center; margin-bottom:18px; font-size:0.85rem;">
+            <label><input type="checkbox" checked> Remember Me</label>
+            <a href="javascript:void(0)"
+              onclick="alert('Password reset instructions sent to staff administrator.')">Forgot Password?</a>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-lg" style="width:100%;">
+            Staff Sign In
+          </button>
+        </form>
+
+        <div style="text-align:center; margin-top:16px; font-size:0.88rem;">
+          Looking for Patient Services?
+          <a href="javascript:void(0)" onclick="app.openPatientLoginModal()" style="font-weight:700;">Patient Login</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. Appointment Authentication Prompt Modal -->
+  <div id="apt-auth-prompt-modal" class="modal-overlay">
+    <div class="modal-container" style="text-align:center;">
+      <div class="modal-header">
+        <h3 class="modal-title">Doctor Consultation Booking</h3>
+        <button class="modal-close-btn" onclick="app.closeAllModals()">✕</button>
+      </div>
+      <div class="modal-body" style="padding:32px 24px;">
+        <div style="font-size:3rem; margin-bottom:14px;">🔐</div>
+        <h3 style="font-size:1.35rem; color:var(--text-main); margin-bottom:8px;">Patient Verification Required</h3>
+        <p style="color:var(--text-muted); font-size:0.95rem; margin-bottom:24px; line-height:1.5;">
+          Please login or register as a patient before booking an appointment.
+        </p>
+
+        <div style="display:flex; flex-direction:column; gap:12px;">
+          <button class="btn btn-primary btn-lg" style="width:100%;" onclick="app.openPatientLoginModal()">
+            👤 Patient Login
+          </button>
+          <button class="btn btn-outline btn-lg" style="width:100%;" onclick="app.openRegisterModal()">
+            📝 New Patient Registration
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. Dedicated Patient Registration Modal -->
+  <div id="register-modal" class="modal-overlay">
+    <div class="modal-container modal-lg">
+      <div class="modal-header">
+        <div>
+          <h3 class="modal-title">New Patient Registration</h3>
+          <p style="font-size:0.8rem; color:var(--text-muted); margin-top:2px;">Create your permanent V MediCare
+            clinical record and Patient ID</p>
+        </div>
+        <button class="modal-close-btn" onclick="app.closeAllModals()">✕</button>
+      </div>
+      <div class="modal-body">
+        <div id="patient-reg-error" class="auth-alert-box danger" style="display:none;"></div>
+
+        <form id="patient-registration-form" onsubmit="event.preventDefault(); app.handlePatientRegisterSubmit(this);">
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Full Name *</label>
+              <input type="text" name="reg_name" class="form-control" required placeholder="e.g. Rahul Kumar">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Email Address *</label>
+              <input type="email" name="reg_email" class="form-control" required placeholder="rahul@example.com">
+            </div>
+          </div>
+
+          <div class="form-row-3">
+            <div class="form-group">
+              <label class="form-label">Date of Birth *</label>
+              <input type="date" name="reg_dob" class="form-control" required max="2026-09-13">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Gender *</label>
+              <select name="reg_gender" class="form-control" required>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Blood Group *</label>
+              <select name="reg_blood" class="form-control" required>
+                <option value="A+">A+</option>
+                <option value="A-">A-</option>
+                <option value="B+">B+</option>
+                <option value="B-">B-</option>
+                <option value="O+">O+</option>
+                <option value="O-">O-</option>
+                <option value="AB+">AB+</option>
+                <option value="AB-">AB-</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Phone Number *</label>
+              <input type="tel" name="reg_phone" class="form-control" required placeholder="+91 98765 43210">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Emergency Contact Phone</label>
+              <input type="tel" name="reg_emergency" class="form-control" placeholder="+91 98765 00000">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Residential Address *</label>
+            <input type="text" name="reg_address" class="form-control" required
+              placeholder="Street address, City, State">
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Create Password *</label>
+              <input type="password" name="reg_password" class="form-control" required
+                placeholder="Minimum 6 characters">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Confirm Password *</label>
+              <input type="password" name="reg_confirm_password" class="form-control" required
+                placeholder="Re-enter password">
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-lg" style="width:100%; margin-top:8px;">
+            Register as Patient
+          </button>
+        </form>
+
+        <div style="text-align:center; margin-top:16px; font-size:0.88rem;">
+          Already have a Patient ID?
+          <a href="javascript:void(0)" onclick="app.openPatientLoginModal()" style="font-weight:700;">Log In</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. Dedicated Patient Registration Success Modal -->
+  <div id="register-success-modal" class="modal-overlay">
+    <div class="modal-container" style="text-align:center; max-width:540px;">
+      <div class="modal-body" style="padding:40px 30px;">
+        <div style="font-size:3.5rem; margin-bottom:12px;">🎉</div>
+        <h3 style="font-size:1.6rem; color:#059669; margin-bottom:8px;">Registration Successful!</h3>
+        <p style="color:var(--text-muted); margin-bottom:16px;">Welcome to V MediCare Healthcare System.</p>
+
+        <div class="receipt-card">
+          <div class="receipt-header">
+            <span
+              style="font-size:0.85rem; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.5px;">Assigned
+              Unique Patient ID</span>
+            <div id="success-patient-id" class="receipt-id-badge">PAT20260002</div>
+          </div>
+          <div class="receipt-row">
+            <span class="label">Patient Name:</span>
+            <span class="value" id="success-patient-name">Rahul Kumar</span>
+          </div>
+          <div class="receipt-row">
+            <span class="label">Patient Email:</span>
+            <span class="value" id="success-patient-email">rahul@example.com</span>
+          </div>
+        </div>
+
+        <div class="auth-alert-box info" style="text-align:left; margin-bottom:24px;">
+          <span>ℹ️</span>
+          <div>Your Patient ID has been generated successfully. Please keep your Patient ID and registered email safe.
+            You will need them to log in.</div>
+        </div>
+
+        <div style="display:flex; gap:12px;">
+          <button class="btn btn-primary btn-lg" style="flex:1;" onclick="app.goToPatientLoginFromSuccess()">
+            Go to Patient Login
+          </button>
+          <button class="btn btn-outline btn-lg" style="flex:1;" onclick="app.closeAllModals()">
+            Go to Home
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5. Dedicated Appointment Confirmation Modal -->
+  <div id="apt-confirmation-modal" class="modal-overlay">
+    <div class="modal-container" style="max-width:560px;">
+      <div class="modal-body" style="padding:32px 28px; text-align:center;">
+        <div style="font-size:3.2rem; margin-bottom:10px;">✅</div>
+        <h3 style="font-size:1.55rem; color:#059669; margin-bottom:6px;">Appointment Booked Successfully!</h3>
+        <p style="color:var(--text-muted); font-size:0.9rem; margin-bottom:18px;">Your outpatient clinical appointment
+          has been confirmed with the hospital desk.</p>
+
+        <div class="receipt-card">
+          <div class="receipt-header">
+            <span
+              style="font-size:0.85rem; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.5px;">Appointment
+              ID</span>
+            <div id="confirm-apt-id" class="receipt-id-badge">APT20260001</div>
+          </div>
+          <div class="receipt-row">
+            <span class="label">Patient Name:</span>
+            <span class="value" id="confirm-patient-name">-</span>
+          </div>
+          <div class="receipt-row">
+            <span class="label">Patient ID:</span>
+            <span class="value" id="confirm-patient-id">-</span>
+          </div>
+          <div class="receipt-row">
+            <span class="label">Patient Email:</span>
+            <span class="value" id="confirm-patient-email">-</span>
+          </div>
+          <div class="receipt-row">
+            <span class="label">Doctor Name:</span>
+            <span class="value" id="confirm-doctor-name">-</span>
+          </div>
+          <div class="receipt-row">
+            <span class="label">Department:</span>
+            <span class="value" id="confirm-department">-</span>
+          </div>
+          <div class="receipt-row">
+            <span class="label">Appointment Date:</span>
+            <span class="value" id="confirm-date">-</span>
+          </div>
+          <div class="receipt-row">
+            <span class="label">Appointment Time:</span>
+            <span class="value" id="confirm-time">-</span>
+          </div>
+          <div class="receipt-row">
+            <span class="label">Appointment Status:</span>
+            <span class="value"><span class="badge badge-success" id="confirm-status">Confirmed</span></span>
+          </div>
+        </div>
+
+        <div style="display:flex; flex-direction:column; gap:10px; margin-top:20px;">
+          <div style="display:flex; gap:10px;">
+            <button class="btn btn-primary" style="flex:1;"
+              onclick="app.closeAllModals(); app.switchView('my-appointments');">
+              View My Appointments
+            </button>
+            <button class="btn btn-outline" style="flex:1;" onclick="app.closeAllModals(); app.switchView('overview');">
+              Go to Patient Dashboard
+            </button>
+          </div>
+          <button class="btn btn-outline-primary btn-sm"
+            onclick="app.closeAllModals(); app.switchView('book-appointment');">
+            Book Another Appointment
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6. Appointment Details Slip Modal -->
+  <div id="apt-detail-modal" class="modal-overlay">
+    <div class="modal-container">
+      <div class="modal-header">
+        <h3 class="modal-title">Appointment Consultation Slip</h3>
+        <button class="modal-close-btn" onclick="app.closeAllModals()">✕</button>
+      </div>
+      <div class="modal-body printable-area" id="apt-detail-content"></div>
+      <div class="modal-footer no-print">
+        <button class="btn btn-primary" onclick="window.print()">🖨️ Print Slip</button>
+        <button class="btn btn-outline" onclick="app.closeAllModals()">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. Add Medical Record Modal (Doctor) -->
+  <div id="medical-record-modal" class="modal-overlay">
+    <div class="modal-container modal-lg">
+      <div class="modal-header">
+        <h3 class="modal-title">Create Clinical Medical Record</h3>
+        <button class="modal-close-btn">✕</button>
+      </div>
+      <div class="modal-body">
+        <form onsubmit="event.preventDefault(); app.addMedicalRecord({
+          patientId: this.m_pid.value,
+          patientName: this.m_pname.value,
+          diagnosis: this.m_diagnosis.value,
+          symptoms: this.m_symptoms.value,
+          treatmentPlan: this.m_plan.value,
+          vitals: {
+            bp: this.m_bp.value,
+            pulse: this.m_pulse.value,
+            temp: this.m_temp.value,
+            weight: this.m_wt.value
+          },
+          notes: this.m_notes.value
+        });">
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Patient ID</label>
+              <input type="text" name="m_pid" class="form-control" value="PAT20260001" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Patient Name</label>
+              <input type="text" name="m_pname" class="form-control" value="Ramesh Patel" required>
+            </div>
+          </div>
+
+          <div class="form-row-3">
+            <div class="form-group">
+              <label class="form-label">BP (mmHg)</label>
+              <input type="text" name="m_bp" class="form-control" value="130/85">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Pulse (bpm)</label>
+              <input type="text" name="m_pulse" class="form-control" value="76">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Temp / Wt</label>
+              <input type="text" name="m_temp" class="form-control" value="98.6 F, 72 kg">
+              <input type="hidden" name="m_wt" value="72 kg">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Clinical Diagnosis</label>
+            <input type="text" name="m_diagnosis" class="form-control" required
+              placeholder="e.g. Acute Bronchitis / Dyspepsia">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Symptoms & Clinical History</label>
+            <textarea name="m_symptoms" class="form-control" rows="2" placeholder="Presenting complaints..."></textarea>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Treatment Plan & Dietary Advice</label>
+            <textarea name="m_plan" class="form-control" rows="2" placeholder="Therapeutic regime..."></textarea>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Follow-up Notes</label>
+            <input type="text" name="m_notes" class="form-control" placeholder="Review in 2 weeks">
+          </div>
+
+          <button type="submit" class="btn btn-primary" style="width:100%;">Save Electronic Medical Record</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5. Issue Prescription Modal (Doctor) -->
+  <div id="prescription-modal" class="modal-overlay">
+    <div class="modal-container modal-lg">
+      <div class="modal-header">
+        <h3 class="modal-title">Generate Digital Prescription</h3>
+        <button class="modal-close-btn">✕</button>
+      </div>
+      <div class="modal-body">
+        <form onsubmit="event.preventDefault(); app.addPrescription({
+          patientId: document.getElementById('rx-patient-id').value,
+          patientName: document.getElementById('rx-patient-name').value,
+          diagnosis: this.rx_diag.value,
+          items: [
+            { medicine: this.rx_m1.value, dosage: this.rx_d1.value, frequency: this.rx_f1.value, duration: this.rx_dur1.value, instructions: this.rx_ins1.value },
+            { medicine: this.rx_m2.value, dosage: this.rx_d2.value, frequency: this.rx_f2.value, duration: this.rx_dur2.value, instructions: this.rx_ins2.value }
+          ]
+        });">
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Patient ID</label>
+              <input type="text" id="rx-patient-id" class="form-control" readonly>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Patient Name</label>
+              <input type="text" id="rx-patient-name" class="form-control" readonly>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Diagnosis</label>
+            <input type="text" name="rx_diag" class="form-control" value="Hypertension & Dyslipidemia" required>
+          </div>
+
+          <div
+            style="border:1px solid var(--border-light); padding:14px; border-radius:var(--radius-md); margin-bottom:14px;">
+            <b>Medicine Item 1</b>
+            <div class="form-row" style="margin-top:8px;">
+              <input type="text" name="rx_m1" class="form-control" value="Telmisartan 40mg" placeholder="Medicine Name"
+                required>
+              <input type="text" name="rx_d1" class="form-control" value="1 Tablet" placeholder="Dosage" required>
+            </div>
+            <div class="form-row-3" style="margin-top:8px;">
+              <input type="text" name="rx_f1" class="form-control" value="Once daily (Morning)" placeholder="Frequency">
+              <input type="text" name="rx_dur1" class="form-control" value="30 Days" placeholder="Duration">
+              <input type="text" name="rx_ins1" class="form-control" value="After breakfast" placeholder="Instructions">
+            </div>
+          </div>
+
+          <div
+            style="border:1px solid var(--border-light); padding:14px; border-radius:var(--radius-md); margin-bottom:14px;">
+            <b>Medicine Item 2</b>
+            <div class="form-row" style="margin-top:8px;">
+              <input type="text" name="rx_m2" class="form-control" value="Atorvastatin 20mg"
+                placeholder="Medicine Name">
+              <input type="text" name="rx_d2" class="form-control" value="1 Tablet" placeholder="Dosage">
+            </div>
+            <div class="form-row-3" style="margin-top:8px;">
+              <input type="text" name="rx_f2" class="form-control" value="Once daily (Night)" placeholder="Frequency">
+              <input type="text" name="rx_dur2" class="form-control" value="30 Days" placeholder="Duration">
+              <input type="text" name="rx_ins2" class="form-control" value="After dinner" placeholder="Instructions">
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-primary" style="width:100%;">Sign & Issue Prescription</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6. Request Lab Test Modal (Doctor) -->
+  <div id="lab-order-modal" class="modal-overlay">
+    <div class="modal-container">
+      <div class="modal-header">
+        <h3 class="modal-title">Request Diagnostic Laboratory Test</h3>
+        <button class="modal-close-btn">✕</button>
+      </div>
+      <div class="modal-body">
+        <form onsubmit="event.preventDefault(); app.requestLabTest({
+          patientId: document.getElementById('lab-order-patient-id').value,
+          patientName: document.getElementById('lab-order-patient-name').value,
+          testType: this.lab_test_type.value,
+          fee: Number(this.lab_fee.value)
+        });">
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Patient ID</label>
+              <input type="text" id="lab-order-patient-id" class="form-control" readonly>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Patient Name</label>
+              <input type="text" id="lab-order-patient-name" class="form-control" readonly>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Select Laboratory Investigation</label>
+            <select name="lab_test_type" class="form-control" required
+              onchange="document.getElementById('lab-fee-input').value = this.options[this.selectedIndex].getAttribute('data-fee')">
+              <option value="Complete Blood Count (CBC)" data-fee="450">Complete Blood Count (CBC) - ₹450</option>
+              <option value="Fasting Blood Sugar (FBS)" data-fee="200">Fasting Blood Sugar (FBS) - ₹200</option>
+              <option value="Urine Routine Examination" data-fee="250">Urine Routine Examination - ₹250</option>
+              <option value="Chest X-Ray PA View" data-fee="500">Chest X-Ray PA View - ₹500</option>
+              <option value="CT Scan Brain (Plain)" data-fee="2800">CT Scan Brain (Plain) - ₹2800</option>
+              <option value="MRI Lumbar Spine" data-fee="5500">MRI Lumbar Spine - ₹5500</option>
+              <option value="12-Lead Electrocardiogram (ECG)" data-fee="500">12-Lead ECG - ₹500</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Standard Charge (₹)</label>
+            <input type="number" id="lab-fee-input" name="lab_fee" class="form-control" value="450" readonly>
+          </div>
+
+          <button type="submit" class="btn btn-primary" style="width:100%;">Dispatch Lab Test Order</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- 7. Enter Lab Results Modal (Lab Technician) -->
+  <div id="lab-result-modal" class="modal-overlay">
+    <div class="modal-container">
+      <div class="modal-header">
+        <h3 class="modal-title">Enter Diagnostic Results & Publish Report</h3>
+        <button class="modal-close-btn">✕</button>
+      </div>
+      <div class="modal-body">
+        <p id="lab-result-patient-info" style="font-weight:700; color:var(--primary); margin-bottom:14px;"></p>
+        <form onsubmit="event.preventDefault(); app.completeLabTest(
+          document.getElementById('lab-result-test-id').value,
+          [
+            { parameter: this.p1_name.value, value: this.p1_val.value, unit: this.p1_unit.value, normalRange: this.p1_range.value, status: 'Normal' },
+            { parameter: this.p2_name.value, value: this.p2_val.value, unit: this.p2_unit.value, normalRange: this.p2_range.value, status: 'Normal' }
+          ],
+          this.lab_findings.value
+        );">
+          <input type="hidden" id="lab-result-test-id">
+
+          <div
+            style="border:1px solid var(--border-light); padding:12px; border-radius:var(--radius-md); margin-bottom:12px;">
+            <b>Primary Parameter</b>
+            <div class="form-row" style="margin-top:6px;">
+              <input type="text" name="p1_name" class="form-control" value="Observed Value"
+                placeholder="Parameter Name">
+              <input type="text" name="p1_val" class="form-control" value="95" placeholder="Value">
+            </div>
+            <div class="form-row" style="margin-top:6px;">
+              <input type="text" name="p1_unit" class="form-control" value="mg/dL" placeholder="Unit">
+              <input type="text" name="p1_range" class="form-control" value="70 - 100 mg/dL"
+                placeholder="Reference Range">
+            </div>
+          </div>
+
+          <div
+            style="border:1px solid var(--border-light); padding:12px; border-radius:var(--radius-md); margin-bottom:12px;">
+            <b>Secondary Parameter</b>
+            <div class="form-row" style="margin-top:6px;">
+              <input type="text" name="p2_name" class="form-control" value="Control Index" placeholder="Parameter Name">
+              <input type="text" name="p2_val" class="form-control" value="1.0" placeholder="Value">
+            </div>
+            <div class="form-row" style="margin-top:6px;">
+              <input type="text" name="p2_unit" class="form-control" value="Index" placeholder="Unit">
+              <input type="text" name="p2_range" class="form-control" value="< 1.2" placeholder="Reference Range">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Pathologist Clinical Findings / Impression</label>
+            <textarea name="lab_findings" class="form-control" rows="2"
+              required>All measured analytes fall strictly within age-adjusted reference ranges.</textarea>
+          </div>
+
+          <button type="submit" class="btn btn-primary" style="width:100%;">Authorize & Publish Lab Report</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- 8. View Lab Report Modal -->
+  <div id="lab-view-modal" class="modal-overlay">
+    <div class="modal-container modal-lg">
+      <div class="modal-header">
+        <h3 class="modal-title">Laboratory Diagnostic Report</h3>
+        <button class="modal-close-btn">✕</button>
+      </div>
+      <div class="modal-body" id="lab-view-content"></div>
+      <div class="modal-footer">
+        <button class="btn btn-primary" onclick="window.print()">🖨️ Print Verified Report</button>
+        <button class="btn btn-outline" onclick="app.closeAllModals()">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 9. Add Medicine Modal (Pharmacist) -->
+  <div id="medicine-modal" class="modal-overlay">
+    <div class="modal-container">
+      <div class="modal-header">
+        <h3 class="modal-title">Enroll New Medicine to Inventory</h3>
+        <button class="modal-close-btn">✕</button>
+      </div>
+      <div class="modal-body">
+        <form onsubmit="event.preventDefault(); app.addOrUpdateMedicine({
+          name: this.med_name.value,
+          category: this.med_cat.value,
+          stock: Number(this.med_stock.value),
+          minStock: Number(this.med_min.value),
+          price: Number(this.med_price.value),
+          expiry: this.med_expiry.value,
+          supplier: this.med_sup.value
+        });">
+          <div class="form-group">
+            <label class="form-label">Medicine Name & Strength</label>
+            <input type="text" name="med_name" class="form-control" required placeholder="e.g. Azithromycin 500mg">
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Category</label>
+              <input type="text" name="med_cat" class="form-control" required placeholder="e.g. Antibiotics">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Supplier</label>
+              <input type="text" name="med_sup" class="form-control" required placeholder="e.g. Torrent Pharma">
+            </div>
+          </div>
+          <div class="form-row-3">
+            <div class="form-group">
+              <label class="form-label">Stock Units</label>
+              <input type="number" name="med_stock" class="form-control" value="100" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Min Warning</label>
+              <input type="number" name="med_min" class="form-control" value="25" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Price (₹)</label>
+              <input type="number" name="med_price" class="form-control" value="85" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Expiry (YYYY-MM)</label>
+            <input type="month" name="med_expiry" class="form-control" required value="2027-08">
+          </div>
+          <button type="submit" class="btn btn-primary" style="width:100%;">Save to Pharmacy Catalog</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- 10. Enroll Staff Member Modal (Admin) -->
+  <div id="staff-modal" class="modal-overlay">
+    <div class="modal-container">
+      <div class="modal-header">
+        <h3 class="modal-title">Provision New Hospital Staff / Doctor</h3>
+        <button class="modal-close-btn">✕</button>
+      </div>
+      <div class="modal-body">
+        <form onsubmit="event.preventDefault(); app.addStaffMember({
+          name: this.stf_name.value,
+          email: this.stf_email.value,
+          role: this.stf_role.value,
+          department: this.stf_dept.value,
+          phone: this.stf_phone.value,
+          specialty: this.stf_spec.value,
+          experience: this.stf_exp.value,
+          fee: this.stf_fee.value
+        });">
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Full Name</label>
+              <input type="text" name="stf_name" class="form-control" required placeholder="Dr. / Mr. / Ms.">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Role</label>
+              <select name="stf_role" class="form-control" required>
+                <option value="doctor">Doctor</option>
+                <option value="receptionist">Receptionist</option>
+                <option value="pharmacist">Pharmacist</option>
+                <option value="labtech">Laboratory Technician</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Official Hospital Email</label>
+              <input type="email" name="stf_email" class="form-control" required placeholder="doctor@vmedicare.com">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Department</label>
+              <input type="text" name="stf_dept" class="form-control" required value="Cardiology">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Specialty & Qualification</label>
+            <input type="text" name="stf_spec" class="form-control" placeholder="MD, DM (Cardiology)">
+          </div>
+
+          <div class="form-row-3">
+            <div class="form-group">
+              <label class="form-label">Phone</label>
+              <input type="text" name="stf_phone" class="form-control" placeholder="+91 98...">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Experience</label>
+              <input type="text" name="stf_exp" class="form-control" value="8+ Years">
+            </div>
+            <div class="form-group">
+              <label class="form-label">OPD Fee (₹)</label>
+              <input type="number" name="stf_fee" class="form-control" value="700">
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-primary" style="width:100%;">Create Account & Issue Staff ID</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- 11. Generate Bill Modal (Receptionist/Admin) -->
+  <div id="bill-modal" class="modal-overlay">
+    <div class="modal-container">
+      <div class="modal-header">
+        <h3 class="modal-title">Generate Patient Invoice</h3>
+        <button class="modal-close-btn">✕</button>
+      </div>
+      <div class="modal-body">
+        <form onsubmit="event.preventDefault(); app.createBill({
+          patientId: this.b_pid.value,
+          patientName: this.b_pname.value,
+          consultationFee: this.b_cons.value,
+          roomCharges: this.b_room.value,
+          labCharges: this.b_lab.value,
+          medicineCharges: this.b_med.value,
+          treatmentCharges: this.b_treat.value
+        });">
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Patient ID</label>
+              <input type="text" name="b_pid" class="form-control" value="PAT20260001" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Patient Name</label>
+              <input type="text" name="b_pname" class="form-control" value="Ramesh Patel" required>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Consultation Fee (₹)</label>
+              <input type="number" name="b_cons" class="form-control" value="800">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Room / Bed Charges (₹)</label>
+              <input type="number" name="b_room" class="form-control" value="0">
+            </div>
+          </div>
+
+          <div class="form-row-3">
+            <div class="form-group">
+              <label class="form-label">Lab Charges (₹)</label>
+              <input type="number" name="b_lab" class="form-control" value="450">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Medicine (₹)</label>
+              <input type="number" name="b_med" class="form-control" value="210">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Treatment (₹)</label>
+              <input type="number" name="b_treat" class="form-control" value="100">
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-primary" style="width:100%;">Create & Dispatch Invoice</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- 12. Mock Payment Gateway Modal -->
+  <div id="payment-modal" class="modal-overlay">
+    <div class="modal-container">
+      <div class="modal-header">
+        <h3 class="modal-title">Secure Online Bill Payment</h3>
+        <button class="modal-close-btn">✕</button>
+      </div>
+      <div class="modal-body">
+        <input type="hidden" id="pay-bill-id">
+        <div
+          style="background:var(--primary-subtle); padding:16px; border-radius:var(--radius-md); margin-bottom:18px; text-align:center;">
+          <div style="font-size:0.85rem; color:var(--text-muted);">Amount Payable</div>
+          <div id="pay-bill-amount" style="font-size:2rem; font-weight:800; color:var(--primary);">₹0</div>
+          <div id="pay-bill-patient" style="font-size:0.85rem; margin-top:4px;">Patient</div>
+        </div>
+
+        <form
+          onsubmit="event.preventDefault(); app.payBill(document.getElementById('pay-bill-id').value, this.pay_mode.value);">
+          <div class="form-group">
+            <label class="form-label">Payment Method</label>
+            <select name="pay_mode" class="form-control" required>
+              <option value="UPI / QR Code">UPI / QR Code (GPay, PhonePe, Paytm)</option>
+              <option value="Credit / Debit Card">Credit / Debit Card (Simulated Demo)</option>
+              <option value="Net Banking">Net Banking (HDFC, ICICI, SBI)</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Demo Card / UPI Identifier</label>
+            <input type="text" class="form-control" value="demo-payment@vmedicare" required>
+          </div>
+
+          <div style="font-size:0.75rem; color:var(--text-muted); margin-bottom:16px;">
+            🔒 Mock educational payment gateway. No real credit/debit card numbers are stored or charged.
+          </div>
+
+          <button type="submit" class="btn btn-success btn-lg" style="width:100%;">Authorize Payment</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- 13. Printable Invoice Receipt Modal -->
+  <div id="invoice-modal" class="modal-overlay">
+    <div class="modal-container modal-lg">
+      <div class="modal-header no-print">
+        <h3 class="modal-title">Hospital Tax Invoice & Receipt</h3>
+        <button class="modal-close-btn">✕</button>
+      </div>
+      <div class="modal-body printable-area" id="invoice-print-area">
+        <!-- Rendered by app.js -->
+      </div>
+      <div class="modal-footer no-print">
+        <button class="btn btn-primary" onclick="window.print()">🖨️ Print Invoice</button>
+        <button class="btn btn-outline" onclick="app.closeAllModals()">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 14. Simulated Transactional Email Logs Hub Modal -->
+  <div id="email-hub-modal" class="modal-overlay">
+    <div class="modal-container modal-lg">
+      <div class="modal-header">
+        <h3 class="modal-title">✉️ Transactional Email Dispatch Logs</h3>
+        <button class="modal-close-btn">✕</button>
+      </div>
+      <div class="modal-body">
+        <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:14px;">
+          Simulated SMTP Outbox: Captures all auto-generated emails (Patient ID Welcome, Appointment Confirmations,
+          Diagnostic Lab Ready, Password Resets).
+        </p>
+        <div id="email-list-target">
+          <!-- Populated by app.js -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Core Javascript Application Logic -->
+  <script src="app.js"></script>
+</body>
+
+</html>
